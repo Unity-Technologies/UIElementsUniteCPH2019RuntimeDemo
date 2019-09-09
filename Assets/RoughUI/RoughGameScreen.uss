@@ -1,0 +1,8 @@
+* {
+    font-size: 14px;
+}
+
+.unity-base-field__label {
+    min-width: 20px;
+    color: rgba(255, 255, 255, 0.95);
+}

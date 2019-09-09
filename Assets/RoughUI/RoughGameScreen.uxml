@@ -1,0 +1,22 @@
+<UXML xmlns="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <VisualElement name="game-ui" style="width: 146px;">
+        <Style src="RoughGameScreen.uss" />
+        <VisualElement name="stats">
+            <Style src="RoughGameScreen.uss" />
+            <Label text="stats-box" name="title" style="background-color: rgba(0, 0, 0, 255); color: rgb(154, 153, 153); height: 22px;" />
+            <VisualElement name="body">
+                <uie:IntegerField label="_speed: " value="42" name="_speed" readonly="true" />
+                <uie:IntegerField label="_kills:" value="42" name="_kills" readonly="true" />
+                <uie:IntegerField label="_shots:" value="42" name="_shots" readonly="true" />
+                <uie:IntegerField label="_accuracy:" value="42" name="_accuracy" readonly="true" />
+            </VisualElement>
+        </VisualElement>
+        <VisualElement>
+            <Label text="players-list" name="title" style="background-color: rgb(0, 0, 0); color: rgb(154, 153, 153); height: 22px;" />
+            <ListView focusable="True" name="player-list" style="height: 157px;" />
+        </VisualElement>
+        <Button text="increase-speed" name="increase-speed" />
+        <Button text="random-explosion" name="random-explosion" />
+        <Button text="back-to-menu" name="back-to-menu" style="width: 133px; margin-top: 3px;" />
+    </VisualElement>
+</UXML>

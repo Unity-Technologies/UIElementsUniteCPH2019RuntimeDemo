@@ -1,0 +1,25 @@
+<UXML xmlns="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <VisualElement name="stats" style="background-color: rgba(108, 108, 108, 0.89);">
+        <Style src="StatsBox.uss" />
+        <Label text="Stats" name="title" class="stats-title" />
+        <VisualElement name="body">
+            <VisualElement name="stat-row" class="stat-row">
+                <Label text="Speed:" class="row-label" />
+                <Label text="42" name="_speed" />
+            </VisualElement>
+            <VisualElement name="stat-row" class="stat-row">
+                <Label text="Kills:" class="row-label" />
+                <Label text="42" name="_kills" />
+            </VisualElement>
+            <VisualElement name="stat-row" class="stat-row">
+                <Label text="Shots:" class="row-label" />
+                <Label text="42" name="_shots" />
+            </VisualElement>
+            <VisualElement name="stat-row" class="stat-row">
+                <Label text="Accuracy:" class="row-label" />
+                <Label text="42" name="_accuracy" />
+                <Label text="%" />
+            </VisualElement>
+        </VisualElement>
+    </VisualElement>
+</UXML>

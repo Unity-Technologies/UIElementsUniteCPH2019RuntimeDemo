@@ -1179,6 +1179,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_CameraControl: {fileID: 1771596988}
   m_TankPrefab: {fileID: 173472, guid: 756d3a6506f2f8241b4e8badde68567a, type: 3}
+  m_Shell: {fileID: 5409530, guid: 008ecb1b70bec724fa2cd34255b0d8f8, type: 3}
+  m_ShellRandomRange: 30
+  m_ShellForce: 25
+  m_ShellWaveCount: 20
+  m_ShellDelay: 0.04
   m_Tanks:
   - m_PlayerColor: {r: 0.16470589, g: 0.39215687, b: 0.69803923, a: 0}
     m_SpawnPoint: {fileID: 194018016}

@@ -11,6 +11,11 @@ namespace Complete
     {
         public CameraControl m_CameraControl;       // Reference to the CameraControl script for control during different phases.
         public GameObject m_TankPrefab;             // Reference to the prefab the players will control.
+        public Rigidbody m_Shell;                   // Prefab of the shell.
+        public int m_ShellRandomRange = 20;
+        public int m_ShellForce = 25;
+        public int m_ShellWaveCount = 10;
+        public float m_ShellDelay = 0.1f;
         public TankManager[] m_Tanks;               // A collection of managers for enabling and disabling different aspects of the tanks.
 
         public PanelRenderer m_MainMenuScreen;
@@ -27,11 +32,15 @@ namespace Complete
         private TankMovement m_Player1Movement;
         private TankShooting m_Player1Shooting;
 
+        private WaitForSeconds m_ShellTime;
+
         private void OnEnable()
         {
             m_MainMenuScreen.uxmlWasReloaded = BindMainMenuScreen;
             m_GameScreen.uxmlWasReloaded = BindGameScreen;
             m_EndScreen.uxmlWasReloaded = BindEndScreen;
+
+            m_ShellTime = new WaitForSeconds(m_ShellDelay);
         }
 
         private void Start()
@@ -97,7 +106,7 @@ namespace Complete
             };
             root.Q<Button>("random-explosion").clickable.clicked += () =>
             {
-                EndRound();
+                StartCoroutine(Firestorm());
             };
 
             var listView = root.Q<ListView>("player-list");
@@ -147,6 +156,31 @@ namespace Complete
             var percentHealth = currentHealth / startingHealth;
 
             healthBarFill.style.width = totalWidth * percentHealth;
+        }
+
+        private IEnumerator Firestorm()
+        {
+            var shellsLeft = m_ShellWaveCount;
+
+            while (shellsLeft > 0)
+            {
+                var x = Random.Range(-m_ShellRandomRange, m_ShellRandomRange);
+                var z = Random.Range(-m_ShellRandomRange, m_ShellRandomRange);
+                var position = new Vector3(x, 20, z);
+                var rotation = Quaternion.FromToRotation(position, new Vector3(x, 0f, z));
+
+                Rigidbody shellInstance =
+                    Instantiate(m_Shell, position, rotation) as Rigidbody;
+
+                shellInstance.gameObject.GetComponent<ShellExplosion>().m_TankMask = -1;
+
+                // Set the shell's velocity to the launch force in the fire position's forward direction.
+                shellInstance.velocity = 30.0f * Vector3.down;
+
+                shellsLeft--;
+
+                yield return m_ShellTime;
+            }
         }
 
         private void BindEndScreen()

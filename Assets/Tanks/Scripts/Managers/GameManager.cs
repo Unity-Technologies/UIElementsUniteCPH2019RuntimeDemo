@@ -31,6 +31,7 @@ namespace Complete
 
         private TankMovement m_Player1Movement;
         private TankShooting m_Player1Shooting;
+        private TankHealth m_Player1Health;
 
         private WaitForSeconds m_ShellTime;
 
@@ -50,8 +51,11 @@ namespace Complete
 
         private void Update()
         {
-            if (m_SpeedLabel == null || m_Tanks.Length == 0 || m_Player1Movement == null)
+            if (m_SpeedLabel == null || m_Tanks.Length == 0 || m_Player1Movement == null || m_Player1Health == null)
                 return;
+
+            if (m_Player1Health.m_Dead)
+                EndRound();
 
             m_SpeedLabel.text = m_Player1Movement.m_Speed.ToString();
 
@@ -208,6 +212,7 @@ namespace Complete
             var instance = m_Tanks[0].m_Instance;
             m_Player1Movement = instance.GetComponent<TankMovement>();
             m_Player1Shooting = instance.GetComponent<TankShooting>();
+            m_Player1Health = instance.GetComponent<TankHealth>();
         }
 
         private void SetCameraTargets()

@@ -6,13 +6,15 @@
 
 .row {
     border-bottom-width: 1px;
-    border-bottom-color: rgba(0, 0, 0, 255);
+    border-bottom-color: rgb(0, 0, 0);
+    background-color: rgba(72, 72, 72, 0.5);
 }
 
 .player-name {
     font-size: 21px;
     margin-top: 6px;
     margin-left: 6px;
+    color: rgba(255, 255, 255, 0.95);
 }
 
 .health-bar {

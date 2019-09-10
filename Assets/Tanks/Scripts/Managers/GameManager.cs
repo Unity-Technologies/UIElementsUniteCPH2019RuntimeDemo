@@ -16,6 +16,8 @@ namespace Complete
         public PanelRenderer m_GameScreen;
         public PanelRenderer m_EndScreen;
 
+        public VisualTreeAsset m_PlayerListItem;
+
         private void OnEnable()
         {
             m_MainMenuScreen.uxmlWasReloaded = BindMainMenuScreen;
@@ -54,6 +56,54 @@ namespace Complete
             {
                 EndRound();
             };
+
+            var listView = root.Q<ListView>("player-list");
+            if (listView.makeItem == null)
+                listView.makeItem = MakeItem;
+            if (listView.bindItem == null)
+                listView.bindItem = BindItem;
+
+            listView.itemsSource = m_Tanks;
+            listView.Refresh();
+        }
+
+        private VisualElement MakeItem()
+        {
+            var element = m_PlayerListItem.CloneTree();
+
+            element.schedule.Execute(() => UpdateHealthBar(element)).Every(500);
+
+            return element;
+        }
+
+        private void BindItem(VisualElement element, int index)
+        {
+            element.Q<Label>("player-name").text = "Player " + m_Tanks[index].m_PlayerNumber;
+
+            var playerColor = m_Tanks[index].m_PlayerColor;
+            playerColor.a = 0.9f;
+            element.Q("icon").style.backgroundColor = playerColor;
+
+            element.userData = m_Tanks[index];
+        }
+
+        private void UpdateHealthBar(VisualElement element)
+        {
+            var tank = element.userData as TankManager;
+            if (tank == null)
+                return;
+
+            var healthBar = element.Q("health-bar");
+            var healthBarFill = element.Q("health-bar-fill");
+
+            var totalWidth = healthBar.resolvedStyle.width;
+
+            var healthComponent = tank.m_Instance.GetComponent<TankHealth>();
+            var currentHealth = healthComponent.m_CurrentHealth;
+            var startingHealth = healthComponent.m_StartingHealth;
+            var percentHealth = currentHealth / startingHealth;
+
+            healthBarFill.style.width = totalWidth * percentHealth;
         }
 
         private void BindEndScreen()

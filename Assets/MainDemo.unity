@@ -655,6 +655,8 @@ MonoBehaviour:
   m_MainMenuScreen: {fileID: 60333865}
   m_GameScreen: {fileID: 1524664449}
   m_EndScreen: {fileID: 1632715448}
+  m_PlayerListItem: {fileID: 9197481963319205126, guid: ed359e11c20a3b0478004566aa00ea24,
+    type: 3}
 --- !u!4 &1304999366
 Transform:
   m_ObjectHideFlags: 0

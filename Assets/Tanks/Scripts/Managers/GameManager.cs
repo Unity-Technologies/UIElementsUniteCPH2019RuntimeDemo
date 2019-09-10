@@ -127,7 +127,7 @@ namespace Complete
         {
             var element = m_PlayerListItem.CloneTree();
 
-            element.schedule.Execute(() => UpdateHealthBar(element)).Every(500);
+            element.schedule.Execute(() => UpdateHealthBar(element)).Every(200);
 
             return element;
         }
@@ -141,6 +141,8 @@ namespace Complete
             element.Q("icon").style.backgroundColor = playerColor;
 
             element.userData = m_Tanks[index];
+
+            UpdateHealthBar(element);
         }
 
         private void UpdateHealthBar(VisualElement element)

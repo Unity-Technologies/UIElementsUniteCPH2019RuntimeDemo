@@ -28,6 +28,7 @@ namespace Complete
             Collider[] colliders = Physics.OverlapSphere (transform.position, m_ExplosionRadius, m_TankMask);
 
             // Go through all the colliders...
+            bool somethingWasHit = false;
             for (int i = 0; i < colliders.Length; i++)
             {
                 // ... and find their rigidbody.
@@ -53,9 +54,11 @@ namespace Complete
                 // Deal this damage to the tank.
                 targetHealth.TakeDamage (damage);
 
-                if (m_SourceTank != null)
-                    m_SourceTank.m_HitCount++;
+                somethingWasHit = true;
             }
+
+            if (somethingWasHit && m_SourceTank != null)
+                m_SourceTank.m_HitCount++;
 
             // Unparent the particles from the shell.
             m_ExplosionParticles.transform.parent = null;

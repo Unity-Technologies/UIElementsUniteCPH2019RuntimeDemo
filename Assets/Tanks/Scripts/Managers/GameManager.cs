@@ -205,7 +205,6 @@ namespace Complete
             for (int i = 0; i < m_Tanks.Length; i++)
             {
                 var ran = Random.Range(0, 180);
-                Debug.Log(ran);
                 var rot = Quaternion.Euler(0, ran, 0);
 
                 // ... create them, set their player number and references needed for control.

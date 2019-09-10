@@ -1,5 +1,6 @@
 using System.Collections;
 using Unity.UIElements.Runtime;
+using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
@@ -18,6 +19,14 @@ namespace Complete
 
         public VisualTreeAsset m_PlayerListItem;
 
+        private Label m_SpeedLabel;
+        private Label m_KillsLabel;
+        private Label m_ShotsLabel;
+        private Label m_AccuracyLabel;
+
+        private TankMovement m_Player1Movement;
+        private TankShooting m_Player1Shooting;
+
         private void OnEnable()
         {
             m_MainMenuScreen.uxmlWasReloaded = BindMainMenuScreen;
@@ -28,6 +37,29 @@ namespace Complete
         private void Start()
         {
             GoToMainMenu();
+        }
+
+        private void Update()
+        {
+            if (m_SpeedLabel == null || m_Tanks.Length == 0 || m_Player1Movement == null)
+                return;
+
+            m_SpeedLabel.text = m_Player1Movement.m_Speed.ToString();
+
+            var kills = m_Tanks.Length;
+            foreach (var tank in m_Tanks)
+                if (tank.m_Instance.activeSelf)
+                    kills--;
+            m_KillsLabel.text = kills.ToString();
+
+            var fireCount = m_Player1Shooting.m_FireCount;
+            m_ShotsLabel.text = fireCount.ToString();
+
+            var hitCount = m_Player1Shooting.m_HitCount;
+            if (fireCount == 0)
+                fireCount = 1; // Avoid div by 0.
+            var percent = (int)(((float)hitCount / (float)fireCount) * 100);
+            m_AccuracyLabel.text = percent.ToString();
         }
 
         private void BindMainMenuScreen()
@@ -48,6 +80,17 @@ namespace Complete
         {
             var root = m_GameScreen.visualTree;
 
+            // Stats
+            m_SpeedLabel = root.Q<Label>("_speed");
+            m_KillsLabel = root.Q<Label>("_kills");
+            m_ShotsLabel = root.Q<Label>("_shots");
+            m_AccuracyLabel = root.Q<Label>("_accuracy");
+
+            // Buttons
+            root.Q<Button>("increase-speed").clickable.clicked += () =>
+            {
+                m_Player1Movement.m_Speed += 1;
+            };
             root.Q<Button>("back-to-menu").clickable.clicked += () =>
             {
                 SceneManager.LoadScene(0);
@@ -127,6 +170,10 @@ namespace Complete
                 m_Tanks[i].m_PlayerNumber = i + 1;
                 m_Tanks[i].Setup();
             }
+
+            var instance = m_Tanks[0].m_Instance;
+            m_Player1Movement = instance.GetComponent<TankMovement>();
+            m_Player1Shooting = instance.GetComponent<TankShooting>();
         }
 
         private void SetCameraTargets()

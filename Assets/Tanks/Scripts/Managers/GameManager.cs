@@ -202,9 +202,14 @@ namespace Complete
             // For all the tanks...
             for (int i = 0; i < m_Tanks.Length; i++)
             {
+                var ran = Random.Range(0, 180);
+                Debug.Log(ran);
+                var rot = Quaternion.Euler(0, ran, 0);
+
                 // ... create them, set their player number and references needed for control.
                 m_Tanks[i].m_Instance =
-                    Instantiate(m_TankPrefab, m_Tanks[i].m_SpawnPoint.position, m_Tanks[i].m_SpawnPoint.rotation) as GameObject;
+                    Instantiate(m_TankPrefab, m_Tanks[i].m_SpawnPoint.position, rot) as GameObject;
+                m_Tanks[i].m_Instance.transform.localRotation = rot;
                 m_Tanks[i].m_PlayerNumber = i + 1;
                 m_Tanks[i].Setup();
             }
@@ -238,9 +243,6 @@ namespace Complete
         {
             SpawnAllTanks();
             SetCameraTargets();
-
-            // As soon as the round starts reset the tanks and make sure they can't move.
-            ResetAllTanks();
 
             // Snap the camera's zoom and position to something appropriate for the reset tanks.
             m_CameraControl.SetStartPositionAndSize();

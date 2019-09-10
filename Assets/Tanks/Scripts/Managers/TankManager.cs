@@ -14,10 +14,30 @@ namespace Complete
         public Color m_PlayerColor;                             // This is the color this tank will be tinted.
         public Transform m_SpawnPoint;                          // The position and direction the tank will have when it spawns.
         [HideInInspector] public int m_PlayerNumber;            // This specifies which player this the manager for.
-        [HideInInspector] public string m_ColoredPlayerText;    // A string that represents the player with their number colored to match their tank.
         [HideInInspector] public GameObject m_Instance;         // A reference to the instance of the tank when it is created.
         [HideInInspector] public int m_Wins;                    // The number of wins this player has so far.
         
+        public Color color
+        {
+            get
+            {
+                Color color;
+                if (m_PlayerColor.r + m_PlayerColor.g + m_PlayerColor.b > 0.01f)
+                {
+                    color = m_PlayerColor;
+                }
+                else
+                {
+                    var r = (float)((m_PlayerNumber * 41) % 255) / 255.0f;
+                    var g = (float)((m_PlayerNumber * 11) % 255) / 255.0f;
+                    var b = (float)((m_PlayerNumber * 109) % 255) / 255.0f;
+
+                    color = new Color(r, g, b);
+                }
+
+                return color;
+            }
+        }
 
         private TankMovement m_Movement;                        // Reference to tank's movement script, used to disable and enable control.
         private TankShooting m_Shooting;                        // Reference to tank's shooting script, used to disable and enable control.
@@ -35,9 +55,6 @@ namespace Complete
             m_Movement.m_PlayerNumber = m_PlayerNumber;
             m_Shooting.m_PlayerNumber = m_PlayerNumber;
 
-            // Create a string using the correct color that says 'PLAYER 1' etc based on the tank's color and the player's number.
-            m_ColoredPlayerText = "<color=#" + ColorUtility.ToHtmlStringRGB(m_PlayerColor) + ">PLAYER " + m_PlayerNumber + "</color>";
-
             // Get all of the renderers of the tank.
             MeshRenderer[] renderers = m_Instance.GetComponentsInChildren<MeshRenderer> ();
 
@@ -45,7 +62,7 @@ namespace Complete
             for (int i = 0; i < renderers.Length; i++)
             {
                 // ... set their material color to the color specific to this tank.
-                renderers[i].material.color = m_PlayerColor;
+                renderers[i].material.color = color;
             }
         }
 

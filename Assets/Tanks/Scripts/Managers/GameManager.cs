@@ -123,7 +123,7 @@ namespace Complete
         {
             element.Q<Label>("player-name").text = "Player " + m_Tanks[index].m_PlayerNumber;
 
-            var playerColor = m_Tanks[index].m_PlayerColor;
+            var playerColor = m_Tanks[index].color;
             playerColor.a = 0.9f;
             element.Q("icon").style.backgroundColor = playerColor;
 

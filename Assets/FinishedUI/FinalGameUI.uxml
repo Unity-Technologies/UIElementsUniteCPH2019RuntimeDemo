@@ -1,12 +1,12 @@
 <UXML xmlns="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
-    <Template name="StatsBox" src="/Assets/PremadeUI/StatsBox.uxml" />
+    <Template name="StatsBox" src="StatsBox.uxml" />
     <VisualElement name="screen" style="flex-grow: 1; flex-direction: row; justify-content: space-between;">
         <Style src="FinalGameUI.uss" />
         <VisualElement name="left" style="justify-content: center;">
             <VisualElement name="toolbar">
-                <Button text="bb" name="increase-speed" class="toolbar-button" />
-                <Button text="bb" name="random-explosion" class="toolbar-button" />
-                <Button text="bb" name="back-to-menu" class="toolbar-button" />
+                <Button text="UP" name="increase-speed" class="toolbar-button" />
+                <Button text="BOOM" name="random-explosion" class="toolbar-button" />
+                <Button text="BACK" name="back-to-menu" class="toolbar-button" />
             </VisualElement>
         </VisualElement>
         <VisualElement name="right" style="justify-content: space-between;">

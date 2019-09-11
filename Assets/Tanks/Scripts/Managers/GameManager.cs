@@ -123,31 +123,46 @@ namespace Complete
             m_AccuracyLabel = root.Q<Label>("_accuracy");
 
             // Buttons
-            root.Q<Button>("increase-speed").clickable.clicked += () =>
+            var increaseSpeedButton = root.Q<Button>("increase-speed");
+            if (increaseSpeedButton != null)
             {
-                m_Player1Movement.m_Speed += 1;
-            };
-            root.Q<Button>("back-to-menu").clickable.clicked += () =>
+                increaseSpeedButton.clickable.clicked += () =>
+                {
+                    m_Player1Movement.m_Speed += 1;
+                };
+            }
+            var backToMenuButton = root.Q<Button>("back-to-menu");
+            if (backToMenuButton != null)
             {
-                SceneManager.LoadScene(0);
-            };
-            root.Q<Button>("random-explosion").clickable.clicked += () =>
+                backToMenuButton.clickable.clicked += () =>
+                {
+                    SceneManager.LoadScene(0);
+                };
+            }
+            var randomExplosionButton = root.Q<Button>("random-explosion");
+            if (randomExplosionButton != null)
             {
-                StartCoroutine(Firestorm());
-            };
+                randomExplosionButton.clickable.clicked += () =>
+                {
+                    StartCoroutine(Firestorm());
+                };
+            }
 
             var listView = root.Q<ListView>("player-list");
-            if (listView.makeItem == null)
-                listView.makeItem = MakeItem;
-            if (listView.bindItem == null)
-                listView.bindItem = BindItem;
-
-            listView.itemsSource = m_Tanks;
-            listView.Refresh();
-
             m_TrackedAssetsForLiveUpdates.Clear();
-            m_TrackedAssetsForLiveUpdates.Add(m_PlayerListItem);
-            m_TrackedAssetsForLiveUpdates.Add(m_PlayerListItemStyles);
+            if (listView != null)
+            {
+                if (listView.makeItem == null)
+                    listView.makeItem = MakeItem;
+                if (listView.bindItem == null)
+                    listView.bindItem = BindItem;
+
+                listView.itemsSource = m_Tanks;
+                listView.Refresh();
+
+                m_TrackedAssetsForLiveUpdates.Add(m_PlayerListItem);
+                m_TrackedAssetsForLiveUpdates.Add(m_PlayerListItemStyles);
+            }
 
             return m_TrackedAssetsForLiveUpdates;
         }

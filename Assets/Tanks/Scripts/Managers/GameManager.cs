@@ -87,14 +87,23 @@ namespace Complete
         {
             var root = m_MainMenuScreen.visualTree;
 
-            root.Q<Button>("start-button").clickable.clicked += () =>
+            var startButton = root.Q<Button>("start-button");
+            if (startButton != null)
+            {
+                startButton.clickable.clicked += () =>
             {
                 StartRound();
             };
-            root.Q<Button>("exit-button").clickable.clicked += () =>
+            }
+
+            var exitButton = root.Q<Button>("exit-button");
+            if (exitButton != null)
+            {
+                exitButton.clickable.clicked += () =>
             {
                 Application.Quit();
             };
+            }
 
             return null;
         }

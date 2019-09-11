@@ -54,6 +54,10 @@ namespace Complete
 
         private void Start()
         {
+#if !UNITY_EDITOR
+            if (Screen.fullScreen)
+                Screen.fullScreen = false;
+#endif
             GoToMainMenu();
         }
 
@@ -91,7 +95,7 @@ namespace Complete
             if (startButton != null)
             {
                 startButton.clickable.clicked += () =>
-            {
+                {
                 StartRound();
             };
             }

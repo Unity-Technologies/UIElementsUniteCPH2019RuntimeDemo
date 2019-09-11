@@ -223,6 +223,7 @@ MonoBehaviour:
   stylesheets: []
   targetTexture: {fileID: 0}
   panelTransform: {fileID: 0}
+  enableLiveUpdates: 1
 --- !u!114 &60333866
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -298,13 +299,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 194018015}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: -0.00000016292068}
   m_LocalPosition: {x: -9.337254, y: 0, z: 23.662746}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 888364569}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &231207811
 GameObject:
   m_ObjectHideFlags: 0
@@ -1340,6 +1341,8 @@ MonoBehaviour:
   m_EndScreen: {fileID: 1632715448}
   m_PlayerListItem: {fileID: 9197481963319205126, guid: ed359e11c20a3b0478004566aa00ea24,
     type: 3}
+  m_PlayerListItemStyles: {fileID: 7433441132597879392, guid: 4c14859fa4091c241a06a77ad91e6070,
+    type: 3}
 --- !u!4 &1304999366
 Transform:
   m_ObjectHideFlags: 0
@@ -1761,11 +1764,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8302b9857102e44c8c26813e6008537, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uxml: {fileID: 9197481963319205126, guid: 9ea2bc4d0194e474e959f94d8acc931a, type: 3}
+  uxml: {fileID: 9197481963319205126, guid: e3ee7d2851425f74d9cc8f44c8c89cb0, type: 3}
   unityStyleSheet: {fileID: 11400000, guid: d610daef742b54fdda82fd41508f7f2e, type: 2}
   stylesheets: []
   targetTexture: {fileID: 0}
   panelTransform: {fileID: 0}
+  enableLiveUpdates: 1
 --- !u!114 &1524664450
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1889,6 +1893,7 @@ MonoBehaviour:
   stylesheets: []
   targetTexture: {fileID: 0}
   panelTransform: {fileID: 0}
+  enableLiveUpdates: 1
 --- !u!114 &1632715449
 MonoBehaviour:
   m_ObjectHideFlags: 0

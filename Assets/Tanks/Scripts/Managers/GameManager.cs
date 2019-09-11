@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using Unity.UIElements.Runtime;
 using UnityEditor.UIElements;
 using UnityEngine;
@@ -23,6 +25,9 @@ namespace Complete
         public PanelRenderer m_EndScreen;
 
         public VisualTreeAsset m_PlayerListItem;
+        public StyleSheet m_PlayerListItemStyles;
+
+        private List<ScriptableObject> m_TrackedAssetsForLiveUpdates;
 
         private Label m_SpeedLabel;
         private Label m_KillsLabel;
@@ -37,9 +42,11 @@ namespace Complete
 
         private void OnEnable()
         {
-            m_MainMenuScreen.uxmlWasReloaded = BindMainMenuScreen;
-            m_GameScreen.uxmlWasReloaded = BindGameScreen;
-            m_EndScreen.uxmlWasReloaded = BindEndScreen;
+            m_MainMenuScreen.postUxmlReload = BindMainMenuScreen;
+            m_GameScreen.postUxmlReload = BindGameScreen;
+            m_EndScreen.postUxmlReload = BindEndScreen;
+
+            m_TrackedAssetsForLiveUpdates = new List<ScriptableObject>();
 
             m_ShellTime = new WaitForSeconds(m_ShellDelay);
         }
@@ -75,7 +82,7 @@ namespace Complete
             m_AccuracyLabel.text = percent.ToString();
         }
 
-        private void BindMainMenuScreen()
+        private IEnumerable<ScriptableObject> BindMainMenuScreen()
         {
             var root = m_MainMenuScreen.visualTree;
 
@@ -87,9 +94,11 @@ namespace Complete
             {
                 Application.Quit();
             };
+
+            return null;
         }
 
-        private void BindGameScreen()
+        private IEnumerable<ScriptableObject> BindGameScreen()
         {
             var root = m_GameScreen.visualTree;
 
@@ -121,6 +130,24 @@ namespace Complete
 
             listView.itemsSource = m_Tanks;
             listView.Refresh();
+
+            m_TrackedAssetsForLiveUpdates.Clear();
+            m_TrackedAssetsForLiveUpdates.Add(m_PlayerListItem);
+            m_TrackedAssetsForLiveUpdates.Add(m_PlayerListItemStyles);
+
+            return m_TrackedAssetsForLiveUpdates;
+        }
+
+        private IEnumerable<ScriptableObject> BindEndScreen()
+        {
+            var root = m_EndScreen.visualTree;
+
+            root.Q<Button>("back-to-menu-button").clickable.clicked += () =>
+            {
+                SceneManager.LoadScene(0);
+            };
+
+            return null;
         }
 
         private VisualElement MakeItem()
@@ -170,8 +197,8 @@ namespace Complete
 
             while (shellsLeft > 0)
             {
-                var x = Random.Range(-m_ShellRandomRange, m_ShellRandomRange);
-                var z = Random.Range(-m_ShellRandomRange, m_ShellRandomRange);
+                var x = UnityEngine.Random.Range(-m_ShellRandomRange, m_ShellRandomRange);
+                var z = UnityEngine.Random.Range(-m_ShellRandomRange, m_ShellRandomRange);
                 var position = new Vector3(x, 20, z);
                 var rotation = Quaternion.FromToRotation(position, new Vector3(x, 0f, z));
 
@@ -189,22 +216,12 @@ namespace Complete
             }
         }
 
-        private void BindEndScreen()
-        {
-            var root = m_EndScreen.visualTree;
-
-            root.Q<Button>("back-to-menu-button").clickable.clicked += () =>
-            {
-                SceneManager.LoadScene(0);
-            };
-        }
-
         private void SpawnAllTanks()
         {
             // For all the tanks...
             for (int i = 0; i < m_Tanks.Length; i++)
             {
-                var ran = Random.Range(0, 180);
+                var ran = UnityEngine.Random.Range(0, 180);
                 var rot = Quaternion.Euler(0, ran, 0);
 
                 // ... create them, set their player number and references needed for control.

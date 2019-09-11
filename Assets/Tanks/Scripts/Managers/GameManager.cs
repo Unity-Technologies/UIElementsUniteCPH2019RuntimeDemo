@@ -2,10 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.UIElements.Runtime;
-using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
+using Object = UnityEngine.Object;
+using Random = UnityEngine.Random;
 
 namespace Complete
 {
@@ -27,7 +28,7 @@ namespace Complete
         public VisualTreeAsset m_PlayerListItem;
         public StyleSheet m_PlayerListItemStyles;
 
-        private List<ScriptableObject> m_TrackedAssetsForLiveUpdates;
+        private List<Object> m_TrackedAssetsForLiveUpdates;
 
         private Label m_SpeedLabel;
         private Label m_KillsLabel;
@@ -46,7 +47,7 @@ namespace Complete
             m_GameScreen.postUxmlReload = BindGameScreen;
             m_EndScreen.postUxmlReload = BindEndScreen;
 
-            m_TrackedAssetsForLiveUpdates = new List<ScriptableObject>();
+            m_TrackedAssetsForLiveUpdates = new List<Object>();
 
             m_ShellTime = new WaitForSeconds(m_ShellDelay);
         }
@@ -82,7 +83,7 @@ namespace Complete
             m_AccuracyLabel.text = percent.ToString();
         }
 
-        private IEnumerable<ScriptableObject> BindMainMenuScreen()
+        private IEnumerable<Object> BindMainMenuScreen()
         {
             var root = m_MainMenuScreen.visualTree;
 
@@ -98,7 +99,7 @@ namespace Complete
             return null;
         }
 
-        private IEnumerable<ScriptableObject> BindGameScreen()
+        private IEnumerable<Object> BindGameScreen()
         {
             var root = m_GameScreen.visualTree;
 
@@ -138,7 +139,7 @@ namespace Complete
             return m_TrackedAssetsForLiveUpdates;
         }
 
-        private IEnumerable<ScriptableObject> BindEndScreen()
+        private IEnumerable<Object> BindEndScreen()
         {
             var root = m_EndScreen.visualTree;
 
@@ -197,8 +198,8 @@ namespace Complete
 
             while (shellsLeft > 0)
             {
-                var x = UnityEngine.Random.Range(-m_ShellRandomRange, m_ShellRandomRange);
-                var z = UnityEngine.Random.Range(-m_ShellRandomRange, m_ShellRandomRange);
+                var x = Random.Range(-m_ShellRandomRange, m_ShellRandomRange);
+                var z = Random.Range(-m_ShellRandomRange, m_ShellRandomRange);
                 var position = new Vector3(x, 20, z);
                 var rotation = Quaternion.FromToRotation(position, new Vector3(x, 0f, z));
 
@@ -221,7 +222,7 @@ namespace Complete
             // For all the tanks...
             for (int i = 0; i < m_Tanks.Length; i++)
             {
-                var ran = UnityEngine.Random.Range(0, 180);
+                var ran = Random.Range(0, 180);
                 var rot = Quaternion.Euler(0, ran, 0);
 
                 // ... create them, set their player number and references needed for control.

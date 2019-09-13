@@ -286,6 +286,9 @@ namespace Complete
             m_MainMenuScreen.visualTree.style.display = DisplayStyle.Flex;
             m_GameScreen.visualTree.style.display = DisplayStyle.None;
             m_EndScreen.visualTree.style.display = DisplayStyle.None;
+            m_MainMenuScreen.gameObject.GetComponent<UIElementsEventSystem>().enabled = true;
+            m_GameScreen.gameObject.GetComponent<UIElementsEventSystem>().enabled = false;
+            m_EndScreen.gameObject.GetComponent<UIElementsEventSystem>().enabled = false;
         }
 
         private void StartRound()
@@ -302,6 +305,9 @@ namespace Complete
             m_MainMenuScreen.visualTree.style.display = DisplayStyle.None;
             m_GameScreen.visualTree.style.display = DisplayStyle.Flex;
             m_EndScreen.visualTree.style.display = DisplayStyle.None;
+            m_MainMenuScreen.gameObject.GetComponent<UIElementsEventSystem>().enabled = false;
+            m_GameScreen.gameObject.GetComponent<UIElementsEventSystem>().enabled = true;
+            m_EndScreen.gameObject.GetComponent<UIElementsEventSystem>().enabled = false;
         }
 
         private void EndRound()
@@ -312,6 +318,9 @@ namespace Complete
             m_MainMenuScreen.visualTree.style.display = DisplayStyle.None;
             m_GameScreen.visualTree.style.display = DisplayStyle.None;
             m_EndScreen.visualTree.style.display = DisplayStyle.Flex;
+            m_MainMenuScreen.gameObject.GetComponent<UIElementsEventSystem>().enabled = false;
+            m_GameScreen.gameObject.GetComponent<UIElementsEventSystem>().enabled = false;
+            m_EndScreen.gameObject.GetComponent<UIElementsEventSystem>().enabled = true;
         }
 
 

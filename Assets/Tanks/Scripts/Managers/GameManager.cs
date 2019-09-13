@@ -152,6 +152,8 @@ namespace Complete
             m_TrackedAssetsForLiveUpdates.Clear();
             if (listView != null)
             {
+                listView.selectionType = SelectionType.None;
+
                 if (listView.makeItem == null)
                     listView.makeItem = MakeItem;
                 if (listView.bindItem == null)

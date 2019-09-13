@@ -1,0 +1,72 @@
+.menu-button {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    font-size: 31px;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-left-color: rgb(101, 101, 101);
+    border-right-color: rgb(101, 101, 101);
+    border-top-color: rgb(101, 101, 101);
+    border-bottom-color: rgb(101, 101, 101);
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    -unity-font: url('/Assets/DemoUI/Font/Teko-Regular.ttf');
+    color: rgba(238, 238, 238, 0.95);
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.menu-title {
+    -unity-text-align: upper-center;
+    font-size: 21px;
+    margin-top: 6px;
+    flex-grow: 1;
+}
+
+.menu-window {
+    height: 421px;
+    width: 268px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.screen {
+    flex-grow: 1;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.menu-column {
+    flex-grow: 1;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.76);
+}
+
+.title-image {
+    height: 191px;
+    background-image: url('/Assets/DemoUI/Images/you_lose.png');
+    -unity-background-scale-mode: scale-to-fit;
+    margin-bottom: 45px;
+    flex-shrink: 0;
+}
+
+.menu-button:hover {
+    border-left-color: rgba(255, 255, 255, 255);
+    border-right-color: rgba(255, 255, 255, 255);
+    border-top-color: rgba(255, 255, 255, 255);
+    border-bottom-color: rgba(255, 255, 255, 255);
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.menu-button:active {
+    background-color: rgba(75, 75, 75, 0.84);
+}

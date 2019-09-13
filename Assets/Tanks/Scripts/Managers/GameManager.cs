@@ -194,7 +194,7 @@ namespace Complete
 
             var playerColor = m_Tanks[index].color;
             playerColor.a = 0.9f;
-            element.Q("icon").style.backgroundColor = playerColor;
+            element.Q("icon").style.unityBackgroundImageTintColor = playerColor;
 
             element.userData = m_Tanks[index];
 

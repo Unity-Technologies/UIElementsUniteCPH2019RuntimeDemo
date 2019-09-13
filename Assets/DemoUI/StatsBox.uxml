@@ -1,22 +1,17 @@
 <UXML xmlns="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
-    <VisualElement name="stats" style="background-color: rgba(108, 108, 108, 0.89);">
+    <VisualElement name="stats" style="background-color: rgba(0, 0, 0, 0.63); border-left-color: rgba(0, 0, 0, 255); border-right-color: rgba(0, 0, 0, 255); border-top-color: rgba(0, 0, 0, 255); border-bottom-color: rgba(0, 0, 0, 255); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px;">
         <Style src="StatsBox.uss" />
-        <Label text="Stats" name="title" class="stats-title" />
-        <VisualElement name="body">
-            <VisualElement name="stat-row" class="stat-row">
-                <Label text="Speed:" class="row-label" />
-                <Label text="42" name="_speed" />
-            </VisualElement>
-            <VisualElement name="stat-row" class="stat-row">
-                <Label text="Kills:" class="row-label" />
-                <Label text="42" name="_kills" />
-            </VisualElement>
-            <VisualElement name="stat-row" class="stat-row">
-                <Label text="Shots:" class="row-label" />
-                <Label text="42" name="_shots" />
-            </VisualElement>
-            <VisualElement name="stat-row" class="stat-row">
-                <Label text="Accuracy:" class="row-label" />
+        <VisualElement name="title-bar" class="stats-title">
+            <VisualElement name="speed-heading" class="heading-icon" style="background-image: url('/Assets/DemoUI/Images/speed_icon.png');" />
+            <VisualElement name="kills-heading" class="heading-icon" style="background-image: url('/Assets/DemoUI/Images/Kills_icon.png');" />
+            <VisualElement name="shots-heading" class="heading-icon" style="background-image: url('/Assets/DemoUI/Images/Shots_icon.png');" />
+            <VisualElement name="accuracy-heading" class="heading-icon" style="background-image: url('/Assets/DemoUI/Images/Accuracy_icon.png');" />
+        </VisualElement>
+        <VisualElement name="body" style="flex-direction: row;">
+            <Label text="42" name="_speed" class="stat" />
+            <Label text="42" name="_kills" class="stat" />
+            <Label text="42" name="_shots" class="stat" />
+            <VisualElement name="stat-row" class="stat-row stat" style="justify-content: center;">
                 <Label text="42" name="_accuracy" />
                 <Label text="%" />
             </VisualElement>

@@ -4,8 +4,18 @@
         <VisualElement name="icon" class="icon" />
         <VisualElement name="body" style="flex-grow: 1;">
             <Label text="Label" name="player-name" class="player-name" />
-            <VisualElement name="health-bar" class="health-bar">
-                <VisualElement name="health-bar-fill" class="health-bar-fill" style="flex-grow: 1; width: 87px;" />
+            <VisualElement name="details-row" style="flex-direction: row; justify-content: space-between;">
+                <Label text="SCORE: 9000" name="score" class="details-text" />
+                <VisualElement name="kills-box" style="flex-direction: row; -unity-background-scale-mode: scale-to-fit; align-items: center;">
+                    <VisualElement name="kills-icon" style="height: 15px; width: 15px; background-image: url('/Assets/DemoUI/Images/Kills_icon.png');" />
+                    <Label text="10/10" name="kills" class="details-text" />
+                </VisualElement>
+            </VisualElement>
+            <VisualElement style="flex-direction: row;">
+                <Label text="HP:" class="details-text" />
+                <VisualElement name="health-bar" class="health-bar">
+                    <VisualElement name="health-bar-fill" class="health-bar-fill" style="flex-grow: 1; width: 87px;" />
+                </VisualElement>
             </VisualElement>
         </VisualElement>
     </VisualElement>

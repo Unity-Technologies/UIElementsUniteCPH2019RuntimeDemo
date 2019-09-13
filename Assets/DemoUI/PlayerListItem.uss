@@ -1,31 +1,46 @@
 .icon {
-    width: 80px;
-    height: 80px;
-    background-color: rgba(120, 120, 120, 0.61);
+    width: 100px;
+    height: 90px;
+    background-image: url('/Assets/DemoUI/Images/tank_icon.png');
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .row {
     border-bottom-width: 1px;
     border-bottom-color: rgb(0, 0, 0);
-    background-color: rgba(72, 72, 72, 0.5);
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .player-name {
-    font-size: 21px;
-    margin-top: 6px;
-    margin-left: 6px;
+    font-size: 30px;
     color: rgba(255, 255, 255, 0.95);
+    -unity-font: url('/Assets/DemoUI/Font/Teko-Regular.ttf');
+    margin-left: 5px;
 }
 
 .health-bar {
-    height: 20px;
-    background-color: rgba(72, 72, 72, 0.76);
+    height: 14px;
+    background-color: rgba(0, 0, 0, 0.76);
     margin-left: 6px;
     margin-right: 6px;
     margin-top: 6px;
     margin-bottom: 6px;
+    flex-grow: 1;
 }
 
 .health-bar-fill {
     background-color: rgba(72, 245, 1, 0.91);
+}
+
+.details-text {
+    -unity-font: url('/Assets/DemoUI/Font/Teko-Regular.ttf');
+    -unity-text-align: middle-left;
+    font-size: 17px;
+    padding-left: 6px;
+    margin-top: 2px;
+    color: rgba(248, 248, 248, 0.95);
 }

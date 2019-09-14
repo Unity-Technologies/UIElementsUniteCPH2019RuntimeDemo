@@ -30,7 +30,6 @@
 }
 
 .menu-window {
-    height: 421px;
     width: 268px;
     padding-left: 20px;
     padding-right: 20px;
@@ -51,18 +50,16 @@
 }
 
 .title-image {
-    height: 191px;
-    background-image: url('/Assets/DemoUI/Images/you_lose.png');
+    height: 431px;
     -unity-background-scale-mode: scale-to-fit;
-    margin-bottom: 45px;
     flex-shrink: 0;
 }
 
 .menu-button:hover {
-    border-left-color: rgba(255, 255, 255, 255);
-    border-right-color: rgba(255, 255, 255, 255);
-    border-top-color: rgba(255, 255, 255, 255);
-    border-bottom-color: rgba(255, 255, 255, 255);
+    border-left-color: rgb(255, 255, 255);
+    border-right-color: rgb(255, 255, 255);
+    border-top-color: rgb(255, 255, 255);
+    border-bottom-color: rgb(255, 255, 255);
     margin-left: 0;
     margin-right: 0;
 }

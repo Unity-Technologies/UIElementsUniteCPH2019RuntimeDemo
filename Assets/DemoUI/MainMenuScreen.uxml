@@ -3,7 +3,7 @@
         <Style src="MenuUSS.uss" />
         <VisualElement name="menu-column" class="menu-column">
             <VisualElement name="menu" class="menu-window">
-                <VisualElement name="menu-title-image" class="title-image" style="background-image: url('/Assets/DemoUI/Images/game_logo.png'); -unity-background-scale-mode: stretch-to-fill; height: 172px;" />
+                <VisualElement name="menu-title-image" class="title-image" style="height: 230px; background-image: url('/Assets/DemoUI/Images/Muzzle_Flash_frames/Muzzle_flash_001.png');" />
                 <Button text="START" name="start-button" class="menu-button" />
                 <Button text="EXIT" name="exit-button" class="menu-button" />
             </VisualElement>

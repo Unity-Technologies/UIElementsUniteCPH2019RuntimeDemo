@@ -3,7 +3,7 @@
         <Style src="MenuUSS.uss" />
         <VisualElement name="menu-column" class="menu-column">
             <VisualElement name="menu-window" class="menu-window">
-                <VisualElement name="menu-title-image" class="title-image" />
+                <VisualElement name="menu-title-image" class="title-image" style="background-image: url('/Assets/DemoUI/Images/fire_loop_frames/Fire_loop_001.png');" />
                 <Button text="MAIN MENU" name="back-to-menu-button" class="menu-button" />
             </VisualElement>
         </VisualElement>

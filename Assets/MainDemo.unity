@@ -1343,6 +1343,21 @@ MonoBehaviour:
     type: 3}
   m_PlayerListItemStyles: {fileID: 7433441132597879392, guid: 4c14859fa4091c241a06a77ad91e6070,
     type: 3}
+  m_TitleLogoFrames:
+  - {fileID: 2800000, guid: 5933b0aec1743204193d357b65516846, type: 3}
+  - {fileID: 2800000, guid: 8f277049df244a34681591b15beebcb9, type: 3}
+  - {fileID: 2800000, guid: a301d9b53a81f674090e9a8ed69a77ee, type: 3}
+  - {fileID: 2800000, guid: 13828deb610d2b44bbefad8f19e27e65, type: 3}
+  m_EndScreenFrames:
+  - {fileID: 2800000, guid: e1d4df607528aa941a02d3a23c708ef2, type: 3}
+  - {fileID: 2800000, guid: 9cc7d1d2056a01c4ca7137e72c6acb03, type: 3}
+  - {fileID: 2800000, guid: 4d311701d4dbc1942b0b3592a7d94eb4, type: 3}
+  - {fileID: 2800000, guid: 11786d12f7ac1a04484d69dbcfe80cf8, type: 3}
+  - {fileID: 2800000, guid: c990b13b681688f41bb300afe48ceaec, type: 3}
+  - {fileID: 2800000, guid: 9adda0348d8b2fc45824067b5580d736, type: 3}
+  - {fileID: 2800000, guid: b7f95e7e5eb56c54f93e625b36a55523, type: 3}
+  - {fileID: 2800000, guid: bda6ddf4b54cb1d468f2bbef8e096160, type: 3}
+  - {fileID: 2800000, guid: 10c16bade4a231340af16edf28ad3bea, type: 3}
 --- !u!4 &1304999366
 Transform:
   m_ObjectHideFlags: 0

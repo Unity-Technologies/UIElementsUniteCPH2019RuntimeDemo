@@ -39,7 +39,13 @@ namespace Complete
         private TankShooting m_Player1Shooting;
         private TankHealth m_Player1Health;
 
-        private WaitForSeconds m_ShellTime;
+        int m_CurrentTitleLogoFrame = 0;
+        public List<Texture2D> m_TitleLogoFrames = new List<Texture2D>();
+
+        int m_CurrentEndScreenFrame = 0;
+        public List<Texture2D> m_EndScreenFrames = new List<Texture2D>();
+
+        WaitForSeconds m_ShellTime;
 
         private void OnEnable()
         {
@@ -96,18 +102,30 @@ namespace Complete
             {
                 startButton.clickable.clicked += () =>
                 {
-                StartRound();
-            };
+                    StartRound();
+                };
             }
 
             var exitButton = root.Q<Button>("exit-button");
             if (exitButton != null)
             {
                 exitButton.clickable.clicked += () =>
-            {
-                Application.Quit();
-            };
+                {
+                    Application.Quit();
+                };
             }
+
+            // Animate title logo.
+            var titleLogo = root.Q("menu-title-image");
+            titleLogo?.schedule.Execute(() =>
+            {
+                if (m_TitleLogoFrames.Count == 0)
+                    return;
+
+                m_CurrentTitleLogoFrame = (m_CurrentTitleLogoFrame + 1) % m_TitleLogoFrames.Count;
+                var frame = m_TitleLogoFrames[m_CurrentTitleLogoFrame];
+                titleLogo.style.backgroundImage = frame;
+            }).Every(200);
 
             return null;
         }
@@ -177,6 +195,18 @@ namespace Complete
             {
                 SceneManager.LoadScene(0);
             };
+
+            // Animate end skull.
+            var titleLogo = root.Q("menu-title-image");
+            titleLogo?.schedule.Execute(() =>
+            {
+                if (m_EndScreenFrames.Count == 0)
+                    return;
+
+                m_CurrentEndScreenFrame = (m_CurrentEndScreenFrame + 1) % m_EndScreenFrames.Count;
+                var frame = m_EndScreenFrames[m_CurrentEndScreenFrame];
+                titleLogo.style.backgroundImage = frame;
+            }).Every(100);
 
             return null;
         }

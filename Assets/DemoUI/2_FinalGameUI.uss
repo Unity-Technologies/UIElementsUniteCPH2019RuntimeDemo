@@ -6,10 +6,10 @@
     margin-top: 4px;
     margin-bottom: 4px;
     background-color: rgba(0, 0, 0, 0.86);
-    border-left-color: rgba(79, 79, 79, 255);
-    border-right-color: rgba(79, 79, 79, 255);
-    border-top-color: rgba(79, 79, 79, 255);
-    border-bottom-color: rgba(79, 79, 79, 255);
+    border-left-color: rgb(79, 79, 79);
+    border-right-color: rgb(79, 79, 79);
+    border-top-color: rgb(79, 79, 79);
+    border-bottom-color: rgb(79, 79, 79);
     border-left-width: 2px;
     border-right-width: 2px;
     border-top-width: 2px;
@@ -28,10 +28,10 @@
 }
 
 .toolbar-button:hover {
-    border-left-color: rgba(217, 217, 217, 255);
-    border-right-color: rgba(217, 217, 217, 255);
-    border-top-color: rgba(217, 217, 217, 255);
-    border-bottom-color: rgba(217, 217, 217, 255);
+    border-left-color: rgb(217, 217, 217);
+    border-right-color: rgb(217, 217, 217);
+    border-top-color: rgb(217, 217, 217);
+    border-bottom-color: rgb(217, 217, 217);
 }
 
 .toolbar-button:active {

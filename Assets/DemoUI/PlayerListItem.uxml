@@ -1,7 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
     <ui:VisualElement name="row" class="row" style="flex-direction: row;">
         <Style src="PlayerListItem.uss" />
-        <ui:VisualElement name="icon" class="icon" />
+        <ui:VisualElement name="icon" style="background-image: url('/Assets/DemoUI/Images/tank_icon.png'); -unity-background-scale-mode: scale-to-fit; width: 100px; height: 90px; margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px;" />
         <ui:VisualElement name="body" style="flex-grow: 1;">
             <ui:Label text="Label" name="player-name" class="player-name" />
             <ui:VisualElement name="details-row" style="flex-direction: row; justify-content: space-between;">

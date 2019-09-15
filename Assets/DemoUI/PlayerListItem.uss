@@ -1,14 +1,3 @@
-.icon {
-    width: 100px;
-    height: 90px;
-    background-image: url('/Assets/DemoUI/Images/tank_icon_base.png');
-    margin-left: 5px;
-    margin-right: 5px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    -unity-background-scale-mode: scale-to-fit;
-}
-
 .row {
     border-bottom-width: 1px;
     border-bottom-color: rgb(0, 0, 0);

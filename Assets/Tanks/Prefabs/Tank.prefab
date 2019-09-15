@@ -10462,13 +10462,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 030896d0325fa3e4d8d7d4cfe2351cb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_StartingHealth: 100
+  m_StartingHealth: 50
   m_Slider: {fileID: 11482748}
   m_FillImage: {fileID: 11404512}
   m_FullHealthColor: {r: 0, g: 1, b: 0, a: 1}
   m_ZeroHealthColor: {r: 1, g: 0, b: 0, a: 1}
   m_ExplosionPrefab: {fileID: 151086, guid: 6bc6d0dd8b8428e4ca316513f2cf13c6, type: 3}
   m_CurrentHealth: 0
+  m_Dead: 0
 --- !u!114 &11488788
 MonoBehaviour:
   m_ObjectHideFlags: 0

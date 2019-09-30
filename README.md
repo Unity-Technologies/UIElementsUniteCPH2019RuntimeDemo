@@ -1,6 +1,8 @@
 # UIElements Unite CPH 2019 Runtime Demo
 
-Demo files for the Unite CPH 2019 Runtime and UI Builder presentation. More info to come.
+Demo files for the Unite Copenhagen 2019 UIElements Runtime and UI Builder presentation:
+
+**Building UI for games with the new UI Builder**
 
 ## Unite Demo Video
 

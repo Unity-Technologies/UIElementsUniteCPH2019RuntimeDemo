@@ -14,4 +14,4 @@ https://youtu.be/t4tfgI1XvGs
 
 * All sample assets are in: `Assets/DemoUI`
 * To open demo scene, open: `Assets/MainDemo.unity`
-* All UI logic in: `Assets\Tanks\Scripts\Managers\GameManager.cs`
+* All UI logic in: `Assets/Tanks/Scripts/Managers/GameManager.cs`

@@ -12,5 +12,6 @@ https://youtu.be/t4tfgI1XvGs
 
 ## Demo Files
 
-* All sample assets are in `Assets/DemoUI`.
-* To open demo scene, open `Assets/MainDemo.unity`.
+* All sample assets are in: `Assets/DemoUI`
+* To open demo scene, open: `Assets/MainDemo.unity`
+* All UI logic in: `Assets\Tanks\Scripts\Managers\GameManager.cs`

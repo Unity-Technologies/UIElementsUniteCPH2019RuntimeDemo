@@ -12,6 +12,7 @@ https://youtu.be/t4tfgI1XvGs
 
 ## Demo Files
 
+* Open the UI Builder from: **Window > UI > UI Builder**
 * All sample assets are in: `Assets/DemoUI`
 * To open demo scene, open: `Assets/MainDemo.unity`
 * All UI logic in: `Assets/Tanks/Scripts/Managers/GameManager.cs`

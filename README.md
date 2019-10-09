@@ -10,6 +10,10 @@ Demo files for the Unite Copenhagen 2019 UIElements Runtime and UI Builder prese
 
 https://youtu.be/t4tfgI1XvGs
 
+## Installation
+
+* It's recommended to use: **Unity 2019.3.0b6** from the Hub
+
 ## Demo Files
 
 * Open the UI Builder from: **Window > UI > UI Builder**

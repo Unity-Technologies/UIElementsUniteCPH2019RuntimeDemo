@@ -12,7 +12,7 @@ https://youtu.be/t4tfgI1XvGs
 
 ## Installation
 
-* It's recommended to use: **Unity 2019.3.0b6** from the Hub
+* Tested against: **Unity 2019.3.0b9**
 
 ## Demo Files
 

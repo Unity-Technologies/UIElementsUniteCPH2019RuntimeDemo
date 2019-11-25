@@ -12,7 +12,7 @@ https://youtu.be/t4tfgI1XvGs
 
 ## Installation
 
-* Tested against: **Unity 2019.3.0b9**
+* Tested against: **Unity 2019.3.0b12**
 
 ## Demo Files
 

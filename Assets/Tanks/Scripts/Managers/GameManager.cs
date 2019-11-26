@@ -12,6 +12,7 @@ namespace Complete
 {
     public class GameManager : MonoBehaviour
     {
+        // Public Properties
         public CameraControl m_CameraControl;       // Reference to the CameraControl script for control during different phases.
         public GameObject m_TankPrefab;             // Reference to the prefab the players will control.
         public Rigidbody m_Shell;                   // Prefab of the shell.
@@ -21,33 +22,58 @@ namespace Complete
         public float m_ShellDelay = 0.1f;
         public TankManager[] m_Tanks;               // A collection of managers for enabling and disabling different aspects of the tanks.
 
+        // UI Panel Renderers
+        // Note: normally you can just use one Panel Rendere and just hide or swap in/out
+        // (using ve.style.display) elements at runtime. It's a lot more efficient
+        // to use a single PanelRenderer.
         public PanelRenderer m_MainMenuScreen;
         public PanelRenderer m_GameScreen;
         public PanelRenderer m_EndScreen;
 
+        // Pre-loaded UI assets (ie. UXML/USS).
         public VisualTreeAsset m_PlayerListItem;
         public StyleSheet m_PlayerListItemStyles;
 
+        // The Panel Renderer can optionally track assets to enable live
+        // updates to any changes made in the UI Builder for specific UI
+        // assets (ie. UXML/USS).
         private List<Object> m_TrackedAssetsForLiveUpdates;
 
+        // We need to update the values of some UI elements so here are
+        // their remembered references after being queried from the cloned
+        // UXML.
         private Label m_SpeedLabel;
         private Label m_KillsLabel;
         private Label m_ShotsLabel;
         private Label m_AccuracyLabel;
 
+        // Game-related variables.
         private TankMovement m_Player1Movement;
         private TankShooting m_Player1Shooting;
         private TankHealth m_Player1Health;
 
+        // UIElements has minimal support for animation at this time so we
+        // implement a custom solution here to animate the game logo. We
+        // just use the built-in UIElements scheduler to repeatedly change
+        // the background image of an element with the next frame in the
+        // animation.
         int m_CurrentTitleLogoFrame = 0;
         public List<Texture2D> m_TitleLogoFrames = new List<Texture2D>();
-
         int m_CurrentEndScreenFrame = 0;
         public List<Texture2D> m_EndScreenFrames = new List<Texture2D>();
 
+        // Internal variables.
         WaitForSeconds m_ShellTime;
-        int m_MaxFirestomrCount = 5;
+        int m_MaxFirestormCount = 5;
 
+        ///////////////////////////////////////////////////////////////////////////////////////////////////
+        // MonoBehaviour States
+
+        // OnEnable
+        // Register our postUxmlReload callbacks to be notified if and when
+        // the UXML or USS assets being user are changed (by the UI Builder).
+        // In these callbacks, we just rebind UI VisualElements to data or
+        // to click events.
         private void OnEnable()
         {
             m_MainMenuScreen.postUxmlReload = BindMainMenuScreen;
@@ -59,6 +85,8 @@ namespace Complete
             m_ShellTime = new WaitForSeconds(m_ShellDelay);
         }
 
+        // Start
+        // Just go to main menu.
         private void Start()
         {
 #if !UNITY_EDITOR
@@ -66,30 +94,36 @@ namespace Complete
                 Screen.fullScreen = false;
 #endif
 
-
-
             GoToMainMenu();
         }
 
+        // Update
+        // Update UI Labels with data from the game. (also run some minimal game logic)
         private void Update()
         {
+            // If any of our UI Labels have not been bound, do nothing.
             if (m_SpeedLabel == null || m_Tanks.Length == 0 || m_Player1Movement == null || m_Player1Health == null)
                 return;
 
+            // Player is dead..
             if (m_Player1Health.m_Dead)
                 EndRound();
 
+            // Update UI label text.
             m_SpeedLabel.text = m_Player1Movement.m_Speed.ToString();
 
+            // Update UI label text.
             var kills = m_Tanks.Length;
             foreach (var tank in m_Tanks)
                 if (tank.m_Instance.activeSelf)
                     kills--;
             m_KillsLabel.text = kills.ToString();
 
+            // Update UI label text.
             var fireCount = m_Player1Shooting.m_FireCount;
             m_ShotsLabel.text = fireCount.ToString();
 
+            // Update UI label text.
             var hitCount = m_Player1Shooting.m_HitCount;
             if (fireCount == 0)
                 fireCount = 1; // Avoid div by 0.
@@ -97,6 +131,12 @@ namespace Complete
             m_AccuracyLabel.text = percent.ToString();
         }
 
+        ///////////////////////////////////////////////////////////////////////////////////////////////////
+        // Bind UI to logic
+
+        // Try to find specific elements by name in the main menu screen and
+        // bind them to callbacks and data. Not finding an element is a valid
+        // state.
         private IEnumerable<Object> BindMainMenuScreen()
         {
             var root = m_MainMenuScreen.visualTree;
@@ -134,7 +174,9 @@ namespace Complete
             return null;
         }
 
-
+        // Try to find specific elements by name in the game screen and
+        // bind them to callbacks and data. Not finding an element is a valid
+        // state.
         private IEnumerable<Object> BindGameScreen()
         {
             var root = m_GameScreen.visualTree;
@@ -167,8 +209,8 @@ namespace Complete
             {
                 randomExplosionButton.clickable.clicked += () =>
                 {
-                    m_MaxFirestomrCount--;
-                    if (m_MaxFirestomrCount < 0)
+                    m_MaxFirestormCount--;
+                    if (m_MaxFirestormCount < 0)
                         EndRound();
                     StartCoroutine(Firestorm());
                 };
@@ -195,6 +237,9 @@ namespace Complete
             return m_TrackedAssetsForLiveUpdates;
         }
 
+        // Try to find specific elements by name in the end screen and
+        // bind them to callbacks and data. Not finding an element is a valid
+        // state.
         private IEnumerable<Object> BindEndScreen()
         {
             var root = m_EndScreen.visualTree;
@@ -218,6 +263,9 @@ namespace Complete
 
             return null;
         }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////
+        // In-Game Virtualized ListView Implementation
 
         private VisualElement MakeItem()
         {
@@ -259,6 +307,58 @@ namespace Complete
 
             healthBarFill.style.width = totalWidth * percentHealth;
         }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////
+        // Screen Transition Logic
+
+        void SetScreenEnableState(PanelRenderer screen, bool state)
+        {
+            if (state)
+            {
+                screen.visualTree.style.display = DisplayStyle.Flex;
+                screen.enabled = true;
+                screen.gameObject.GetComponent<UIElementsEventSystem>().enabled = true;
+            }
+            else
+            {
+                screen.visualTree.style.display = DisplayStyle.None;
+                screen.enabled = false;
+                screen.gameObject.GetComponent<UIElementsEventSystem>().enabled = false;
+            }
+        }
+
+        IEnumerator TransitionScreens(PanelRenderer from, PanelRenderer to)
+        {
+            from.visualTree.style.display = DisplayStyle.None;
+            from.gameObject.GetComponent<UIElementsEventSystem>().enabled = false;
+
+            to.enabled = true;
+
+            yield return null;
+            yield return null;
+            yield return null;
+
+            to.visualTree.style.display = DisplayStyle.Flex;
+            to.visualTree.style.visibility = Visibility.Hidden;
+            to.gameObject.GetComponent<UIElementsEventSystem>().enabled = true;
+
+            yield return null;
+            yield return null;
+            yield return null;
+
+            to.visualTree.style.visibility = Visibility.Visible;
+
+            yield return null;
+            yield return null;
+            yield return null;
+            yield return null;
+            yield return null;
+
+            from.enabled = false;
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////
+        // Game Logic (unrelated to UI)
 
         private IEnumerator Firestorm()
         {
@@ -319,52 +419,6 @@ namespace Complete
             m_CameraControl.m_Targets = targets;
         }
 
-        void SetScreenEnableState(PanelRenderer screen, bool state)
-        {
-            if (state)
-            {
-                screen.visualTree.style.display = DisplayStyle.Flex;
-                screen.enabled = true;
-                screen.gameObject.GetComponent<UIElementsEventSystem>().enabled = true;
-            }
-            else
-            {
-                screen.visualTree.style.display = DisplayStyle.None;
-                screen.enabled = false;
-                screen.gameObject.GetComponent<UIElementsEventSystem>().enabled = false;
-            }
-        }
-
-        IEnumerator TransitionScreens(PanelRenderer from, PanelRenderer to)
-        {
-            from.visualTree.style.display = DisplayStyle.None;
-            from.gameObject.GetComponent<UIElementsEventSystem>().enabled = false;
-
-            to.enabled = true;
-
-            yield return null;
-            yield return null;
-            yield return null;
-
-            to.visualTree.style.display = DisplayStyle.Flex;
-            to.visualTree.style.visibility = Visibility.Hidden;
-            to.gameObject.GetComponent<UIElementsEventSystem>().enabled = true;
-
-            yield return null;
-            yield return null;
-            yield return null;
-
-            to.visualTree.style.visibility = Visibility.Visible;
-
-            yield return null;
-            yield return null;
-            yield return null;
-            yield return null;
-            yield return null;
-
-            from.enabled = false;
-        }
-
         private void GoToMainMenu()
         {
             SetScreenEnableState(m_MainMenuScreen, true);
@@ -395,52 +449,6 @@ namespace Complete
             SetScreenEnableState(m_GameScreen, false);
             SetScreenEnableState(m_EndScreen, true);
         }
-
-
-        // This is used to check if there is one or fewer tanks remaining and thus the round should end.
-        private bool OneTankLeft()
-        {
-            // Start the count of tanks left at zero.
-            int numTanksLeft = 0;
-
-            // Go through all the tanks...
-            for (int i = 0; i < m_Tanks.Length; i++)
-            {
-                // ... and if they are active, increment the counter.
-                if (m_Tanks[i].m_Instance.activeSelf)
-                    numTanksLeft++;
-            }
-
-            // If there are one or fewer tanks remaining return true, otherwise return false.
-            return numTanksLeft <= 1;
-        }
-        
-        
-        // This function is to find out if there is a winner of the round.
-        // This function is called with the assumption that 1 or fewer tanks are currently active.
-        private TankManager GetRoundWinner()
-        {
-            // Go through all the tanks...
-            for (int i = 0; i < m_Tanks.Length; i++)
-            {
-                // ... and if one of them is active, it is the winner so return it.
-                if (m_Tanks[i].m_Instance.activeSelf)
-                    return m_Tanks[i];
-            }
-
-            // If none of the tanks are active it is a draw so return null.
-            return null;
-        }
-
-        // This function is used to turn all the tanks back on and reset their positions and properties.
-        private void ResetAllTanks()
-        {
-            for (int i = 0; i < m_Tanks.Length; i++)
-            {
-                m_Tanks[i].Reset();
-            }
-        }
-
 
         private void EnableTankControl()
         {

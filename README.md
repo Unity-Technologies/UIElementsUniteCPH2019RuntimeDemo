@@ -20,3 +20,7 @@ https://youtu.be/t4tfgI1XvGs
 * All sample assets are in: `Assets/DemoUI`
 * To open demo scene, open: `Assets/MainDemo.unity`
 * All UI logic in: `Assets/Tanks/Scripts/Managers/GameManager.cs`
+
+## Runtime
+
+Runtime support for UIElements is still in development. This project has an earlier version embedded, inside the `Assets/UIRuntime` folder. This implementation provides the **Panel Renderer** component which can be used to display UIElements and capture UI events in the Game view.

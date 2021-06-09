@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.UIElements.Runtime;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
@@ -26,9 +25,9 @@ namespace Complete
         // Note: normally you can just use one Panel Rendere and just hide or swap in/out
         // (using ve.style.display) elements at runtime. It's a lot more efficient
         // to use a single PanelRenderer.
-        public PanelRenderer m_MainMenuScreen;
-        public PanelRenderer m_GameScreen;
-        public PanelRenderer m_EndScreen;
+        public UIDocument m_MainMenuScreen;
+        public UIDocument m_GameScreen;
+        public UIDocument m_EndScreen;
 
         // Pre-loaded UI assets (ie. UXML/USS).
         public VisualTreeAsset m_PlayerListItem;
@@ -76,9 +75,9 @@ namespace Complete
         // to click events.
         private void OnEnable()
         {
-            m_MainMenuScreen.postUxmlReload = BindMainMenuScreen;
-            m_GameScreen.postUxmlReload = BindGameScreen;
-            m_EndScreen.postUxmlReload = BindEndScreen;
+            BindMainMenuScreen();
+            BindGameScreen(null);
+            BindEndScreen();
 
             m_TrackedAssetsForLiveUpdates = new List<Object>();
 
@@ -137,10 +136,10 @@ namespace Complete
         // Try to find specific elements by name in the main menu screen and
         // bind them to callbacks and data. Not finding an element is a valid
         // state.
-        private IEnumerable<Object> BindMainMenuScreen()
+        private void BindMainMenuScreen()
         {
-            var root = m_MainMenuScreen.visualTree;
-
+            var root = m_MainMenuScreen.rootVisualElement;
+            
             var startButton = root.Q<Button>("start-button");
             if (startButton != null)
             {
@@ -170,16 +169,14 @@ namespace Complete
                 var frame = m_TitleLogoFrames[m_CurrentTitleLogoFrame];
                 titleLogo.style.backgroundImage = frame;
             }).Every(200);
-
-            return null;
         }
 
         // Try to find specific elements by name in the game screen and
         // bind them to callbacks and data. Not finding an element is a valid
         // state.
-        private IEnumerable<Object> BindGameScreen()
+        private void BindGameScreen()
         {
-            var root = m_GameScreen.visualTree;
+            var root = m_GameScreen.rootVisualElement;
 
             // Stats
             m_SpeedLabel = root.Q<Label>("_speed");
@@ -228,21 +225,19 @@ namespace Complete
                     listView.bindItem = BindItem;
 
                 listView.itemsSource = m_Tanks;
-                listView.Refresh();
+                listView.Rebuild();
 
                 m_TrackedAssetsForLiveUpdates.Add(m_PlayerListItem);
                 m_TrackedAssetsForLiveUpdates.Add(m_PlayerListItemStyles);
             }
-
-            return m_TrackedAssetsForLiveUpdates;
         }
 
         // Try to find specific elements by name in the end screen and
         // bind them to callbacks and data. Not finding an element is a valid
         // state.
-        private IEnumerable<Object> BindEndScreen()
+        private void BindEndScreen()
         {
-            var root = m_EndScreen.visualTree;
+            var root = m_EndScreen.rootVisualElement;
 
             root.Q<Button>("back-to-menu-button").clickable.clicked += () =>
             {
@@ -261,7 +256,6 @@ namespace Complete
                 titleLogo.style.backgroundImage = frame;
             }).Every(100);
 
-            return null;
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -311,26 +305,24 @@ namespace Complete
         ///////////////////////////////////////////////////////////////////////////////////////////////////
         // Screen Transition Logic
 
-        void SetScreenEnableState(PanelRenderer screen, bool state)
+        void SetScreenEnableState(UIDocument screen, bool state)
         {
             if (state)
             {
-                screen.visualTree.style.display = DisplayStyle.Flex;
-                screen.enabled = true;
-                screen.gameObject.GetComponent<UIElementsEventSystem>().enabled = true;
+                screen.rootVisualElement.style.display = DisplayStyle.Flex;
+                screen.gameObject.GetComponent<PanelEventHandler>().enabled = true;
             }
             else
             {
-                screen.visualTree.style.display = DisplayStyle.None;
-                screen.enabled = false;
-                screen.gameObject.GetComponent<UIElementsEventSystem>().enabled = false;
+                screen.rootVisualElement.style.display = DisplayStyle.None;
+                screen.gameObject.GetComponent<PanelEventHandler>().enabled = false;
             }
         }
 
-        IEnumerator TransitionScreens(PanelRenderer from, PanelRenderer to)
+        IEnumerator TransitionScreens(UIDocument from, UIDocument to)
         {
-            from.visualTree.style.display = DisplayStyle.None;
-            from.gameObject.GetComponent<UIElementsEventSystem>().enabled = false;
+            from.rootVisualElement.style.display = DisplayStyle.None;
+            from.gameObject.GetComponent<PanelEventHandler>().enabled = false;
 
             to.enabled = true;
 
@@ -338,15 +330,15 @@ namespace Complete
             yield return null;
             yield return null;
 
-            to.visualTree.style.display = DisplayStyle.Flex;
-            to.visualTree.style.visibility = Visibility.Hidden;
-            to.gameObject.GetComponent<UIElementsEventSystem>().enabled = true;
+            to.rootVisualElement.style.display = DisplayStyle.Flex;
+            to.rootVisualElement.style.visibility = Visibility.Hidden;
+            to.gameObject.GetComponent<PanelEventHandler>().enabled = true;
 
             yield return null;
             yield return null;
             yield return null;
 
-            to.visualTree.style.visibility = Visibility.Visible;
+            to.rootVisualElement.style.visibility = Visibility.Visible;
 
             yield return null;
             yield return null;

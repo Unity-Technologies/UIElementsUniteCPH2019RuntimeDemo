@@ -1,10 +1,10 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/DemoUI/MenuUSS.uss?fileID=7433441132597879392&amp;guid=3501a5a508a39804eb70f4a46609663f&amp;type=3#MenuUSS" />
     <ui:VisualElement name="screen" class="screen">
-        <Style src="MenuUSS.uss" />
         <ui:VisualElement name="menu-column" class="menu-column">
             <ui:VisualElement name="menu" class="menu-window">
-                <ui:VisualElement name="menu-title-image" class="title-image" style="height: 230px; background-image: url('/Assets/DemoUI/Images/Muzzle_Flash_frames/Muzzle_flash_001.png');" />
-                <ui:Button text="START" name="start-button" class="menu-button" />
+                <ui:VisualElement name="menu-title-image" class="title-image" style="height: 230px; background-image: url(&apos;project://database/Assets/DemoUI/Images/Muzzle_Flash_frames/Muzzle_flash_001.png?fileID=21300000&amp;guid=5933b0aec1743204193d357b65516846&amp;type=3#Muzzle_flash_001&apos;);" />
+                <ui:Button text="START&#10;" name="start-button" class="menu-button" />
                 <ui:Button text="EXIT" name="exit-button" class="menu-button" />
             </ui:VisualElement>
         </ui:VisualElement>

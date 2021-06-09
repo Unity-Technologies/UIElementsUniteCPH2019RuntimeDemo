@@ -1,9 +1,9 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/DemoUI/MenuUSS.uss?fileID=7433441132597879392&amp;guid=3501a5a508a39804eb70f4a46609663f&amp;type=3#MenuUSS" />
     <ui:VisualElement name="screen" class="screen">
-        <Style src="MenuUSS.uss" />
         <ui:VisualElement name="menu-column" class="menu-column">
             <ui:VisualElement name="menu-window" class="menu-window">
-                <ui:VisualElement name="menu-title-image" class="title-image" style="background-image: url('/Assets/DemoUI/Images/fire_loop_frames/Fire_loop_001.png');" />
+                <ui:VisualElement name="menu-title-image" class="title-image" style="background-image: url(&apos;project://database/Assets/DemoUI/Images/fire_loop_frames/Fire_loop_001.png?fileID=21300000&amp;guid=e1d4df607528aa941a02d3a23c708ef2&amp;type=3#Fire_loop_001&apos;);" />
                 <ui:Button text="MAIN MENU" name="back-to-menu-button" class="menu-button" />
             </ui:VisualElement>
         </ui:VisualElement>

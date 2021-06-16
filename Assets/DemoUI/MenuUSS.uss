@@ -20,6 +20,8 @@
     margin-right: 10px;
     margin-bottom: 10px;
     -unity-font: url('project://database/Assets/DemoUI/Font/Teko-Bold.ttf?fileID=12800000&guid=f3779f90ca0d59b409849d6caca59094&type=3#Teko-Bold');
+    transition-duration: 0.2s;
+    transition-timing-function: ease;
 }
 
 .menu-title {
@@ -60,8 +62,8 @@
     border-right-color: rgb(255, 255, 255);
     border-top-color: rgb(255, 255, 255);
     border-bottom-color: rgb(255, 255, 255);
-    margin-left: 0;
-    margin-right: 0;
+    background-color: rgb(72, 70, 70);
+    scale: 1.05 1.05;
 }
 
 .menu-button:active {

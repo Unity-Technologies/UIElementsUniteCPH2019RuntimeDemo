@@ -75,13 +75,12 @@ namespace Complete
         // to click events.
         private void OnEnable()
         {
+            m_TrackedAssetsForLiveUpdates = new List<Object>();
+            m_ShellTime = new WaitForSeconds(m_ShellDelay);
+
             BindMainMenuScreen();
             BindGameScreen();
             BindEndScreen();
-
-            m_TrackedAssetsForLiveUpdates = new List<Object>();
-
-            m_ShellTime = new WaitForSeconds(m_ShellDelay);
         }
 
         // Start

@@ -76,7 +76,7 @@ namespace Complete
         private void OnEnable()
         {
             BindMainMenuScreen();
-            BindGameScreen(null);
+            BindGameScreen();
             BindEndScreen();
 
             m_TrackedAssetsForLiveUpdates = new List<Object>();

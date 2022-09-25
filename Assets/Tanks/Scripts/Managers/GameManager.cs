@@ -9,6 +9,7 @@ using Random = UnityEngine.Random;
 
 namespace Complete
 {
+    [RequireComponent(typeof(UIDocument))]
     public class GameManager : MonoBehaviour
     {
         // Public Properties
@@ -21,13 +22,9 @@ namespace Complete
         public float m_ShellDelay = 0.1f;
         public TankManager[] m_Tanks;               // A collection of managers for enabling and disabling different aspects of the tanks.
 
-        // UI Panel Renderers
-        // Note: normally you can just use one Panel Rendere and just hide or swap in/out
-        // (using ve.style.display) elements at runtime. It's a lot more efficient
-        // to use a single PanelRenderer.
-        public UIDocument m_MainMenuScreen;
-        public UIDocument m_GameScreen;
-        public UIDocument m_EndScreen;
+        // UIDocument
+        private UIDocument m_ScreenUIDocument;
+        private UIScreenManager m_UIScreenManager;
 
         // Pre-loaded UI assets (ie. UXML/USS).
         public VisualTreeAsset m_PlayerListItem;
@@ -75,6 +72,9 @@ namespace Complete
         // to click events.
         private void OnEnable()
         {
+            m_ScreenUIDocument = gameObject.GetComponent<UIDocument>();
+            m_UIScreenManager = m_ScreenUIDocument.rootVisualElement.Q<UIScreenManager>();
+
             m_TrackedAssetsForLiveUpdates = new List<Object>();
             m_ShellTime = new WaitForSeconds(m_ShellDelay);
 
@@ -137,7 +137,7 @@ namespace Complete
         // state.
         private void BindMainMenuScreen()
         {
-            var root = m_MainMenuScreen.rootVisualElement;
+            var root = m_UIScreenManager.menuScreen;
             
             var startButton = root.Q<Button>("start-button");
             if (startButton != null)
@@ -175,7 +175,7 @@ namespace Complete
         // state.
         private void BindGameScreen()
         {
-            var root = m_GameScreen.rootVisualElement;
+            var root = m_UIScreenManager.gameScreen;
 
             // Stats
             m_SpeedLabel = root.Q<Label>("_speed");
@@ -236,7 +236,7 @@ namespace Complete
         // state.
         private void BindEndScreen()
         {
-            var root = m_EndScreen.rootVisualElement;
+            var root = m_UIScreenManager.endScreen;
 
             root.Q<Button>("back-to-menu-button").clickable.clicked += () =>
             {
@@ -285,7 +285,7 @@ namespace Complete
         private void UpdateHealthBar(VisualElement element)
         {
             var tank = element.userData as TankManager;
-            if (tank == null)
+            if (tank == null || tank.m_Instance == null)
                 return;
 
             var healthBar = element.Q("health-bar");
@@ -299,53 +299,6 @@ namespace Complete
             var percentHealth = currentHealth / startingHealth;
 
             healthBarFill.style.width = totalWidth * percentHealth;
-        }
-
-        ///////////////////////////////////////////////////////////////////////////////////////////////////
-        // Screen Transition Logic
-
-        void SetScreenEnableState(UIDocument screen, bool state)
-        {
-            if (state)
-            {
-                screen.rootVisualElement.style.display = DisplayStyle.Flex;
-                screen.gameObject.GetComponent<PanelEventHandler>().enabled = true;
-            }
-            else
-            {
-                screen.rootVisualElement.style.display = DisplayStyle.None;
-                screen.gameObject.GetComponent<PanelEventHandler>().enabled = false;
-            }
-        }
-
-        IEnumerator TransitionScreens(UIDocument from, UIDocument to)
-        {
-            from.rootVisualElement.style.display = DisplayStyle.None;
-            from.gameObject.GetComponent<PanelEventHandler>().enabled = false;
-
-            to.enabled = true;
-
-            yield return null;
-            yield return null;
-            yield return null;
-
-            to.rootVisualElement.style.display = DisplayStyle.Flex;
-            to.rootVisualElement.style.visibility = Visibility.Hidden;
-            to.gameObject.GetComponent<PanelEventHandler>().enabled = true;
-
-            yield return null;
-            yield return null;
-            yield return null;
-
-            to.rootVisualElement.style.visibility = Visibility.Visible;
-
-            yield return null;
-            yield return null;
-            yield return null;
-            yield return null;
-            yield return null;
-
-            from.enabled = false;
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -412,9 +365,9 @@ namespace Complete
 
         private void GoToMainMenu()
         {
-            SetScreenEnableState(m_MainMenuScreen, true);
-            SetScreenEnableState(m_GameScreen, false);
-            SetScreenEnableState(m_EndScreen, false);
+            m_UIScreenManager.showMenuScreen = true;
+            m_UIScreenManager.showGameScreen = false;
+            m_UIScreenManager.showEndScreen = false;
         }
 
         private void StartRound()
@@ -428,7 +381,11 @@ namespace Complete
             // As soon as the round begins playing let the players control the tanks.
             EnableTankControl();
 
-            StartCoroutine(TransitionScreens(m_MainMenuScreen, m_GameScreen));
+            m_UIScreenManager.showMenuScreen = false;
+            m_UIScreenManager.showGameScreen = true;
+            m_UIScreenManager.showEndScreen = false;
+
+            //StartCoroutine(TransitionScreens(m_MainMenuScreen, m_GameScreen));
         }
 
         private void EndRound()
@@ -436,9 +393,9 @@ namespace Complete
             // Stop tanks from moving.
             DisableTankControl();
 
-            SetScreenEnableState(m_MainMenuScreen, false);
-            SetScreenEnableState(m_GameScreen, false);
-            SetScreenEnableState(m_EndScreen, true);
+            m_UIScreenManager.showMenuScreen = false;
+            m_UIScreenManager.showGameScreen = false;
+            m_UIScreenManager.showEndScreen = true;
         }
 
         private void EnableTankControl()

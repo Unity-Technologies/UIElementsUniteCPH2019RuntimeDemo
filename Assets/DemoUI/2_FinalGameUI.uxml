@@ -13,7 +13,7 @@
             <ui:Instance template="StatsBox" name="stats" class="container" />
             <ui:VisualElement name="player-list-container" class="container">
                 <ui:Label text="PLAYERS" class="stats-title" style="background-color: rgb(0, 0, 0); -unity-font: url(&apos;project://database/Assets/DemoUI/Font/Teko-Regular.ttf?fileID=12800000&amp;guid=587f582ca4575a846889542d445ad6d1&amp;type=3#Teko-Regular&apos;); font-size: 24px; color: rgb(226, 226, 226); -unity-text-align: upper-center;" />
-                <ui:ListView focusable="True" name="player-list" item-height="100" style="width: 302px; height: 366px; background-color: rgba(0, 0, 0, 0.69); border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px;" />
+                <ui:ListView focusable="True" name="player-list" item-height="100" fixed-item-height="100" style="width: 310px; height: 366px; background-color: rgba(0, 0, 0, 0.69); border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px;" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

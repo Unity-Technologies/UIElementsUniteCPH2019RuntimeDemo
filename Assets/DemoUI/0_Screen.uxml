@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:Template name="1_MainMenuScreen" src="project://database/Assets/DemoUI/1_MainMenuScreen.uxml?fileID=9197481963319205126&amp;guid=2f4a0f70680197c40856d202187cfcfd&amp;type=3#1_MainMenuScreen" />
+    <ui:Template name="2_FinalGameUI" src="project://database/Assets/DemoUI/2_FinalGameUI.uxml?fileID=9197481963319205126&amp;guid=0c86a390bf397b14e8b24eba356f7d2b&amp;type=3#2_FinalGameUI" />
+    <ui:Template name="3_EndScreen" src="project://database/Assets/DemoUI/3_EndScreen.uxml?fileID=9197481963319205126&amp;guid=e71747be389bea441b751d94e2c26374&amp;type=3#3_EndScreen" />
+    <Style src="project://database/Assets/DemoUI/Screen.uss?fileID=7433441132597879392&amp;guid=1e42fdc6b20c4b849b74801504e4b2a6&amp;type=3#Screen" />
+    <UIScreenManager show-menu-screen="true" show-game-screen="false" show-end-screen="false" class="screen">
+        <ui:Instance template="1_MainMenuScreen" name="menu-screen" class="screen" />
+        <ui:Instance template="2_FinalGameUI" name="game-screen" class="screen" />
+        <ui:Instance template="3_EndScreen" name="end-screen" class="screen" />
+    </UIScreenManager>
+</ui:UXML>

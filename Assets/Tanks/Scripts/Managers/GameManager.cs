@@ -62,6 +62,14 @@ namespace Complete
         WaitForSeconds m_ShellTime;
         int m_MaxFirestormCount = 5;
 
+        enum GameState
+        {
+            MENU,
+            GAME,
+            END
+        };
+        GameState m_GameState = GameState.MENU;
+
         ///////////////////////////////////////////////////////////////////////////////////////////////////
         // MonoBehaviour States
 
@@ -81,6 +89,8 @@ namespace Complete
             BindMainMenuScreen();
             BindGameScreen();
             BindEndScreen();
+
+            RestoreUIForState();
         }
 
         // Start
@@ -368,6 +378,7 @@ namespace Complete
             m_UIScreenManager.showMenuScreen = true;
             m_UIScreenManager.showGameScreen = false;
             m_UIScreenManager.showEndScreen = false;
+            m_GameState = GameState.MENU;
         }
 
         private void StartRound()
@@ -385,7 +396,7 @@ namespace Complete
             m_UIScreenManager.showGameScreen = true;
             m_UIScreenManager.showEndScreen = false;
 
-            //StartCoroutine(TransitionScreens(m_MainMenuScreen, m_GameScreen));
+            m_GameState = GameState.GAME;
         }
 
         private void EndRound()
@@ -396,6 +407,30 @@ namespace Complete
             m_UIScreenManager.showMenuScreen = false;
             m_UIScreenManager.showGameScreen = false;
             m_UIScreenManager.showEndScreen = true;
+
+            m_GameState = GameState.END;
+        }
+
+        private void RestoreUIForState()
+        {
+            switch (m_GameState)
+            {
+                case GameState.MENU:
+                    m_UIScreenManager.showMenuScreen = true;
+                    m_UIScreenManager.showGameScreen = false;
+                    m_UIScreenManager.showEndScreen = false;
+                    break;
+                case GameState.GAME:
+                    m_UIScreenManager.showMenuScreen = false;
+                    m_UIScreenManager.showGameScreen = true;
+                    m_UIScreenManager.showEndScreen = false;
+                    break;
+                case GameState.END:
+                    m_UIScreenManager.showMenuScreen = false;
+                    m_UIScreenManager.showGameScreen = false;
+                    m_UIScreenManager.showEndScreen = true;
+                    break;
+            }
         }
 
         private void EnableTankControl()
